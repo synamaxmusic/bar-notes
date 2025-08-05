@@ -1,3 +1,14 @@
+<!-- vim-markdown-toc GFM -->
+
+* [Intro](#intro)
+* [UltraVision NU64](#ultravision-nu64)
+	* [FORM Chunk Types](#form-chunk-types)
+	* [FORM #0](#form-0)
+	* [FORM #1](#form-1)
+	* [PAD Types](#pad-types)
+
+<!-- vim-markdown-toc -->
+
 # bar-notes
 Tools and reverse-engineering documentation related to Beetle Adventure Racing
 
@@ -74,5 +85,35 @@ TEXT|Particle Effect related|
 PIID|Particle Effect related|
 PHDR|Particle Effect related|
 PDAT|Particle Effect related|
+
+## Important ROM addresses
+
+Name|Address|Notes
+| --- | --- | --- |
+FORM #0|0x237D0|Also start of BSS and start of FORM in physical ROM
+FORM #1|0x25FD0|First FORM with actual game data
+D_ROMEND|0xF16160|Last address of used ROM space
+
+## Important VRAM addresses (very WIP)
+
+Address|Name|otes
+| --- | --- | --- |
+8001F790|START OF RAM
+80022BD0|bss_start|
+80025BD8||table of addresses (points tables of jump tables)
+80025E80||counter for AI car movements events during cutscenes (controller buffer count in-game)
+80025E84||total number of AI car movements events during cutscenes
+80025E88||counter for cutscenes length
+80025E8C||total number of cutscenes length
+80025E90||ring buffer for logging all event durations during gameplay for replay (value ranges from 0 to FE, next byte starts incrementing upon overflow)
+80025E7C|D_debugEnable|
+80033770|D_formheader|
+80033778|D_formTOC|(looks like absolute addresses)
+80036010|D_formLoader|(looks like this loads FORM data in and out of memory)
+8008E340||start of executable code for uvstring_rom.o (ROM location at 16E468)
+8008E404||grabs first byte of "Start with Saved Data" string at 801C6F20
+8008F094||pointer for start of uvstring_rom.o (8008E340...this is not in ROM)
+8008F0A8||start of new executable code
+8992CC85|Game Loaded flag|non-zero means game data has been loaded
 
 
